@@ -22,7 +22,10 @@ int getByte(int x, int n) {
     return (x >> (n << 3)) & 255;
 }
 
-int logicalShift(int x, int n) {
+int fitBits(int x, int n) {
+    return !((x ^ (x >> 31)) >> (n + (~0)));
+}
+/*int logicalShift(int x, int n) {
 
 }
 
@@ -32,20 +35,29 @@ int addOK(int x, int y) {
 
 int bang(int x) {
 
-}
+}*/
 
 int conditional(int x, int y, int z) {
-
+    x = !!x;
+    x |= x << 1;
+    x |= x << 2;
+    x |= x << 4;
+    x |= x << 8;
+    x |= x << 16;
+    x |= x >> 1;
+    x |= x >> 2;
+    x |= x >> 4;
+    x |= x >> 8;
+    x |= x >> 16;
+    return (x & y) | (~x & z);
 }
 
 int isPower2(int x) {
-    return !(x & (x - 1)) | !x;
+    return !(x & (x + ~0)) | !x;
 }
+
 int main(void)
 {
-    int a;
-    scanf("%d", &a);
-    printf("%o", isPower2(a)) ;
     return 0;
 }
 
