@@ -25,11 +25,19 @@ int getByte(int x, int n) {
 int fitBits(int x, int n) {
     return !((x ^ (x >> 31)) >> (n + (~0)));
 }
-/*int logicalShift(int x, int n) {
+int logicalShift(int x, int n) {
+    int a = 1 << 31;
+    int b = a & x;
+    b >>= 31;
+    b &= 1;
+    b <<= (31  + (~n + 1));
+    x &= ~a;
+    x >>= n;
+    return x | b;
 
 }
 
-int addOK(int x, int y) {
+/*int addOK(int x, int y) {
 
 }
 
@@ -58,6 +66,8 @@ int isPower2(int x) {
 
 int main(void)
 {
+    int x = 0xFFFFFFFF, n = 16;
+    printf("%x", logicalShift(x, n));
     return 0;
 }
 
