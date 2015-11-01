@@ -27,6 +27,8 @@ int main(void) {
     }
     printf("\n");
     printf("work time:%f\n", (double) clock() / CLOCKS_PER_SEC);
+	free(mas):
+	free(count);
     return 0;
 }
 
