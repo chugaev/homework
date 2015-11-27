@@ -28,7 +28,12 @@ node* getNode(int val, node* next) {
     }
 }
 
-void erase(node* head, int val) {
+void erase(node** h, int val) {
+    node * head = (*h);
+    if ((**h).data == val) {
+        (*h) = (**h).next;
+        return;
+    }
     node* prev;
     while(head) {
         if(head->data == val) {
@@ -50,7 +55,7 @@ void printList(node* head) {
 }
 
 int main() {
-    node *h, *cur = 0;
+    node *cur = 0;
     for(;;) {
         char ch;
         scanf("%c", &ch);
@@ -61,20 +66,14 @@ int main() {
         } else if(ch == 'r') {
             int x;
             scanf("%d", &x);
-            if(cur->data == x) {
-                node *tmp = cur;
-                cur = cur->next;
-                free(tmp);
-            } else {
-                erase(cur, x);
-            }
+            erase(&cur, x);
         } else if(ch == 'p') {
             printList(cur);
         } else if(ch == 'q') {
-            h = cur;
-            freeList(h);
+            freeList(cur);
             return 0;
         }
     }
     return 0;
 }
+
