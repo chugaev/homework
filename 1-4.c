@@ -1,7 +1,9 @@
 #include <stdio.h>
 
 size_t str_len(char * str) {
-    return (*str) ? str_len(++str) + 1 : 0;
+    char * start = str;
+    while(*str++);
+    return str - start - 1;
 }
 
 int str_cmp(char * s1, char * s2) {
