@@ -57,12 +57,18 @@ void printList(node* head) {
 node* create_cicle() {
     const int SIZE_LIST = 10;
     node * n = (node*)malloc(sizeof(node));
+    if (n == NULL) {
+        return 0;
+    }
     node * tmp = n;
     if(n) {
         int i;
         for(i = 1; i <= SIZE_LIST; i++) {
             n->data = i;
             n->next = (node*)malloc(sizeof(node));
+            if (n->next == NULL) {
+                return 0;
+            }
             n = n->next;
         }
         n->next = tmp->next->next->next->next->next;
@@ -93,6 +99,10 @@ int isCycle(node *head) {
 int main() {
     node *cur = 0;
     cur  = create_cicle();
+    if (cur == NULL) {
+        printf("Memory allocation error\n");
+        return 0;
+    }
     printf("%d\n", isCycle(cur));
     return 0;
 }
