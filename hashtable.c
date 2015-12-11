@@ -8,7 +8,7 @@ typedef struct node node;
 
 typedef struct hash_table hash_table;
 
-const char for_scanf[255] = "%[\] !/\"#$\%&\'()*+,\n-.:;<=>\?@\\^_`{|}~0-9\[]%[A-Za-z]";
+const char for_scanf[] = "%[\] !/\"#$\%&\'()*+,\n-.:;<=>\?@\\^_`{|}~0-9\[]%[A-Za-z]";
 
 struct node {
     char key[255];
@@ -95,36 +95,27 @@ unsigned int hash37(hash_table * hashtable, char * str) {
 
 void set(hash_table * hashtable, char * key,int val, int (*hash)(hash_table *, char *)) {
     int hs = hash(hashtable, key);
-    if (hashtable->table[hs] == NULL) {
-        hashtable->table[hs] = getNode(hashtable->table[hs], key, val);
-    } else {
-        node * tmp = hashtable->table[hs];
-        while (tmp) {
-            if (!strcmp(key, tmp->key)) {
-                tmp->data = val;
-                return;
-            }
-            tmp = tmp->next;
+    node * tmp = hashtable->table[hs];
+    while (tmp) {
+        if (!strcmp(key, tmp->key)) {
+            tmp->data = val;
+            return;
         }
-        hashtable->table[hs] = getNode(hashtable->table[hs], key, val);
+        tmp = tmp->next;
     }
+    hashtable->table[hs] = getNode(hashtable->table[hs], key, val);
 }
 
 int get(hash_table * hashtable,char * key, int (*hash)(hash_table *, char *)) {
     int hs = hash(hashtable, key);
-    if (hashtable->table[hs] == NULL) {
-        return 0;
-    } else {
-        node * tmp = hashtable->table[hs];
-        while (tmp) {
-            if (!strcmp(key, tmp->key)) {
-                return tmp->data;
-            }
-            tmp = tmp->next;
+    node * tmp = hashtable->table[hs];
+    while (tmp) {
+        if (!strcmp(key, tmp->key)) {
+            return tmp->data;
         }
-        return 0;
+        tmp = tmp->next;
     }
-
+    return 0;
 }
 
 void delete_element (hash_table * hashtable,char * key, int (*hash)(hash_table *, char *)) {
@@ -229,5 +220,4 @@ int main(void) {
     fclose(f);
     return 0;
 }
-
 
