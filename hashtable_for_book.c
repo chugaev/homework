@@ -242,6 +242,7 @@ int main(void) {
     hashtable_stat(hashtable);
     clock_t finish_time = clock();
     printf("work time:%f\n", (double) (finish_time - start_time) / CLOCKS_PER_SEC);
+	print_count_word(hashtable);
     fclose(f);
     return 0;
 }
